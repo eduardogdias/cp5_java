@@ -99,6 +99,11 @@ body {
   object-fit: contain;
 }
 
+.user-info{
+	color: white;
+	text-decoration: none;
+}
+
 /* Conteúdo principal: deslocado para direita por causa da sidebar e com espaço pra navbar */
 .content {
   margin-left: var(--sidebar-width);

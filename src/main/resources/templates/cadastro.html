@@ -3,32 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <title>Cadastro</title>
+    <link rel="stylesheet" th:href="@{/css/auth.css}">
 </head>
-<body>
-<h2>Crie sua conta</h2>
+<body class="body">
 
-<form th:action="@{/cadastro}" th:object="${usuario}" method="post">
+<div class="container">
+    <h2 class="title">Cadastro</h2>
 
-    <div>
-        <label for="nome">Nome:</label>
-        <input type="text" id="nome" th:field="*{nome}" required />
-    </div>
+	<img th:src="@{/img/logo.png}" alt="logo">
+	
+    <form th:action="@{/cadastro}" th:object="${usuario}" method="post" class="form">
 
-    <div>
-        <label for="email">Email:</label>
-        <input type="email" id="email" th:field="*{email}" required />
-    </div>
+        <div class="field">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" th:field="*{nome}" required />
+        </div>
 
-    <div>
-        <label for="senha">Senha:</label>
-        <input type="password" id="senha" th:field="*{senha}" required />
-    </div>
+        <div class="field">
+            <label for="email">Email:</label>
+            <input type="email" id="email" th:field="*{email}" required />
+        </div>
 
-    <div>
-        <button type="submit">Cadastrar</button>
-    </div>
-</form>
+        <div class="field">
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha" th:field="*{senha}" required />
+        </div>
 
-<p>Já tem cadastro? <a th:href="@{/index}">Clique aqui</a></p>
+        <div class="button">
+            <button type="submit">Cadastrar</button>
+        </div>
+    </form>
+
+    <p class="link">
+        Já tem cadastro? <a th:href="@{/login}">Clique aqui</a>
+    </p>
+</div>
+
 </body>
 </html>

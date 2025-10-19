@@ -26,6 +26,7 @@ public class SecurityConfig {
         					auth.requestMatchers("/cadastro/**").permitAll(); 
         					auth.requestMatchers("/login/**").permitAll(); 
         					auth.requestMatchers("/index/**").permitAll();
+        					auth.requestMatchers("/css/**", "/js/**", "/img/**").permitAll();
         					
         					// regras para web       					
         					auth.requestMatchers("/web/*/editar/*").hasRole("ADMIN");
@@ -42,6 +43,7 @@ public class SecurityConfig {
 
         		.formLogin(form -> form //login via formulario na web
         				.loginPage("/index") // pagina personalizada de login
+        				.loginProcessingUrl("/login") // onde o formulário POST é enviado
                         .defaultSuccessUrl("/web/clientes/listar", true) 
                         .permitAll()      
                 )

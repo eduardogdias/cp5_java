@@ -35,12 +35,14 @@
 		        </li>
 		      </ul>
       </div>
-      <div>
+      <div class="fundo">
 	      <button class="btn" id="btnSair" align="right">
 		    <a th:href="@{/logout}">
 		      <img th:src="@{/img/sair.png}" alt="Sair">    
+		      
 		    </a>   	
 		 </button>
+		 <span class="user-info" sec:authentication="name"></span>
 	 </div>
     </div>
 
