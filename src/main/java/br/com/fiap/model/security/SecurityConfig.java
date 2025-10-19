@@ -26,6 +26,7 @@ public class SecurityConfig {
         					auth.requestMatchers("/cadastro/**").permitAll(); 
         					auth.requestMatchers("/login/**").permitAll(); 
         					auth.requestMatchers("/index/**").permitAll();
+        					auth.requestMatchers("/index").permitAll();
         					auth.requestMatchers("/css/**", "/js/**", "/img/**").permitAll();
         					
         					// regras para web       					
