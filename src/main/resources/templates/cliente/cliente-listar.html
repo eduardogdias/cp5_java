@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lista de Clientes</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+  <!-- NAVBAR  -->
+  <div class="navbar">
+    <div class="nav-links">
+      <a th:href="@{/web/clientes/formulario}">Cadastro</a>
+      <a th:href="@{/web/clientes/listar}">Listagem</a>
+    </div>
+  </div>
+
+  <div class="page-layout">
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+    	<div>
+		      <ul>
+		        <li>
+		          <img th:src="@{/img/clientes.png}" alt="Clientes">
+		          <a th:href="@{/web/clientes/listar}">Clientes</a>
+		        </li>
+		        <li>
+		          <img th:src="@{/img/produtos.png}" alt="Produtos">
+		          <a th:href="@{/web/produtos/listar}">Produtos</a>
+		        </li>
+		        <li>
+		          <img th:src="@{/img/vendas.png}" alt="Vendas">
+		          <a th:href="@{/web/vendas/listar}">Vendas</a>
+		        </li>
+		      </ul>
+      </div>
+      <div>
+	      <button class="btn" id="btnSair" align="right">
+		    <a th:href="@{/logout}">
+		      <img th:src="@{/img/sair.png}" alt="Sair">    
+		    </a>   	
+		 </button>
+	 </div>
+    </div>
+
+    <!-- CONTEÚDO -->
+    <div class="content">
+      <div class="container">
+        <h1>Clientes cadastrados</h1>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Telefone</th>
+                <th>Endereço</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="cliente : ${clientes}">
+                <td th:text="${cliente.id}"></td>
+                <td th:text="${cliente.nome}"></td>
+                <td th:text="${cliente.cpf}"></td>
+                <td th:text="${cliente.telefone}"></td>
+                <td th:text="${cliente.endereco}"></td>
+                <td class="action-icons">
+                  <a th:href="@{/web/clientes/editar/{id}(id=${cliente.id})}">
+                    <img th:src="@{/img/edit.png}" alt="Editar">
+                  </a>
+                  <a th:href="@{/web/clientes/excluir/{id}(id=${cliente.id})}"
+                     onclick="return confirm('Tem certeza que deseja excluir este cliente?');">
+                    <img th:src="@{/img/delete.png}" alt="Excluir">
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</body>
+</html>

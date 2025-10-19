@@ -1,0 +1,211 @@
+:root{
+  --navbar-height: 64px;
+  --sidebar-width: 220px;
+  --blue: #004aad;
+  --yellow: #ffcc00;
+}
+
+/* reset / base */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f4faff;
+  color: #333;
+}
+
+/* NAVBAR superior (fixa) */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding-left: 200px;
+  height: var(--navbar-height);
+  background-color: var(--blue);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1001;
+}
+
+.navbar .nav-links {
+  display: flex;
+  gap: 24px;
+}
+
+.navbar a {
+  color: var(--yellow);
+  text-decoration: none;
+  font-weight: 700;
+  padding: 6px 8px;
+}
+
+.navbar a:hover {
+  color: white;
+  border-bottom: 2px solid var(--yellow);
+}
+
+/* Layout com sidebar + conteúdo */
+.page-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* SIDEBAR lateral fixa (começa abaixo do navbar) */
+.sidebar {
+  position: fixed;
+  top: var(--navbar-height);
+  left: 0;
+  width: var(--sidebar-width);
+  height: calc(100vh - var(--navbar-height));
+  background-color: var(--blue);
+  color: white;
+  padding-top: 18px;
+  box-sizing: border-box;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 18px;
+}
+
+.sidebar li a {
+  color: white;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.sidebar li:hover {
+  background-color: #00347a;
+}
+
+/* ícone do menu */
+.sidebar img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+/* Conteúdo principal: deslocado para direita por causa da sidebar e com espaço pra navbar */
+.content {
+  margin-left: var(--sidebar-width);
+  padding-top: calc(var(--navbar-height) + 18px);
+  padding-left: 30px;
+  padding-right: 30px;
+  width: calc(100% - var(--sidebar-width));
+  box-sizing: border-box;
+  min-height: calc(100vh - var(--navbar-height));
+}
+
+/* Container central (card) — mantém a aparência centralizada */
+.container {
+  max-width: 820px;
+  margin: 20px auto;
+  background: white;
+  padding: 26px;
+  border-radius: 10px;
+  box-shadow: 0px 6px 18px rgba(0,0,0,0.08);
+  text-align: left;
+}
+
+.container h1 {
+  text-align: center;
+  color: var(--blue);
+  margin-top: 0;
+  margin-bottom: 18px;
+}
+
+/* form */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+label {
+  font-weight: 600;
+}
+
+input[type="text"], input[type="email"], input[type="tel"] {
+  padding: 10px;
+  border: 1px solid #d6d6d6;
+  border-radius: 6px;
+  outline: none;
+}
+
+input:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 6px rgba(0,74,173,0.12);
+}
+
+/* botão */
+button {
+  padding: 12px;
+  background-color: var(--blue);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+button:hover { background-color: #003680; }
+
+/* tabela */
+/* tabela */
+.table-wrap { overflow-x:auto; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 8px;
+}
+
+table th, table td {
+  padding: 10px;
+  border: 1px solid #e6e6e6;
+  text-align: left;
+  
+}
+table th {
+  background-color: var(--blue);
+  color: white;
+  font-weight: 700;
+}
+table tr:nth-child(even) { background-color: #fbfbfb; }
+table tr:hover { background-color: #fff8e6; } /* amarelo claro hover */
+
+/* AÇÕES: ícones lado a lado */
+.action-icons {
+  display: flex;              /* flex ao invés de inline-flex */
+  gap: 10px;
+  align-items: center;
+  justify-content: center;    /* centraliza na célula */
+}
+.action-icons img {
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+
+/* responsividade simples */
+@media (max-width: 860px) {
+  .sidebar { display: none; }
+  .content { margin-left: 0; padding-top: calc(var(--navbar-height) + 12px); }
+  .container { margin: 12px; }
+}
+

@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cadastro de Vendas</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+  <!-- NAVBAR superior -->
+  <div class="navbar">
+    <div class="nav-links" align="center">
+      <a th:href="@{/web/vendas/formulario}">Cadastro</a>
+      <a th:href="@{/web/vendas/listar}">Listagem</a>
+    </div>       
+  </div>
+
+  <div class="page-layout">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+    	<div>
+		      <ul>
+		        <li>
+		          <img th:src="@{/img/clientes.png}" alt="Clientes">
+		          <a th:href="@{/web/clientes/listar}">Clientes</a>
+		        </li>
+		        <li>
+		          <img th:src="@{/img/produtos.png}" alt="Produtos">
+		          <a th:href="@{/web/produtos/listar}">Produtos</a>
+		        </li>
+		        <li>
+		          <img th:src="@{/img/vendas.png}" alt="Vendas">
+		          <a th:href="@{/web/vendas/listar}">Vendas</a>
+		        </li>
+		      </ul>
+      </div>
+      <div>
+	      <button class="btn" id="btnSair" align="right">
+		    <a th:href="@{/logout}">
+		      <img th:src="@{/img/sair.png}" alt="Sair">    
+		    </a>   	
+		 </button>
+	 </div>
+    </div>
+    
+    
+    
+    
+    
+
+    <!-- CONTEÚDO PRINCIPAL  -->
+    <div class="content">
+      <div class="container">
+        <h1 th:text="${venda.id == null} ? 'Cadastro de Vendas' : 'Editar Venda'"></h1>
+
+        <form th:action="@{/web/vendas/salvar}" th:object="${venda}" method="post">
+          <input type="hidden" th:field="*{id}" />
+
+          <label>Cliente ID:</label>
+          <input type="text" th:field="*{cliente}" required />
+          
+          <label>Valor Total:</label>
+          <input type="text" th:field="*{valorTotal}" required />
+
+          <button type="submit">Salvar</button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
