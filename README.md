@@ -1,6 +1,7 @@
-# 🛒 Projeto SuperMarket (Parte II)
+# 🛒 Projeto SuperMarket (CP5 - Parte II)
 
-Este repositório demonstra o funcionamento do sistema SuperMarket, que permite cadastrar produtos e clientes, registrar vendas de forma simples e acompanhar o histórico de transações. Para a parte 2 foram criados novos endpoints que permitem que a API seja acessada via WEB com HTML e Thymeleaf. O sistema desenvolvido com Java e Spring Boot, agora salva Clientes, Produtos e Vendas no Banco de Dados Postgres oferecido pelo Render, e o deploy está nessa mesma plataforma. Acessar a API via protocolos HTTP ainda é possível.
+Este repositório demonstra o funcionamento do sistema SuperMarket, que permite cadastrar produtos e clientes, registrar vendas de forma simples e acompanhar o histórico de transações. Foram criados endpoints que permitem que a API seja acessada via WEB com HTML e Thymeleaf. E agora conta com mais segurança, uma vez que para ser acessada todos os usuários precisam estar autenticados com Spring Security. O sistema desenvolvido com Java e Spring Boot salva Clientes, Produtos e Vendas no Banco de Dados Postgres oferecido pelo Render, e o deploy está nessa mesma plataforma. Acessar a API via protocolos HTTP ainda é possível.
+
 
 ---
 # 🔹 Pacotes utilizados e suas funções
@@ -11,6 +12,7 @@ Este repositório demonstra o funcionamento do sistema SuperMarket, que permite 
 - Entity → Mapeia tabelas e relacionamentos no banco.
 - Repository → Abstrai o acesso e consultas ao banco.
 - Service → Implementa lógica e regras de negócio.
+- Security → Regras de segurança da aplicação
 
 **2. View:**
 - Static → CSS e imagens
@@ -26,26 +28,69 @@ Este repositório demonstra o funcionamento do sistema SuperMarket, que permite 
 - Parte 2 → Eclipse
 ---
 
-## Configuração Inicial no Spring Initializr (CP4 - Parte 2)
+## Configuração Inicial no Spring Initializr (CP5- Parte 2)
 ![Imagem do projeto](imagem_git/projeto.png)
 
 ---
 
 ## Deploy da API
 
-O Deploy da aplicação foi feito no Render. Acesse os links abaixo e coloque o endpoint no final.
+O Deploy e o banco de daos estão no Render. Acesse os links abaixo e coloque o endpoint no final.
 
 - Para retornar páginas ``HTML``:
-https://cp4-java-sv3f.onrender.com/web/
+https://cp5-java-lox5.onrender.com/
 
 
 - Para retornar em ``JSON``:
-https://cp4-java-sv3f.onrender.com/api/
+https://cp5-java-lox5.onrender.com/api/
 
 
-**Obs:** Para testar no  `localhost` é necessário acessar pela porta 8082, como especificado no ``application.properties``
+**Obs 1:** Para testar no  `localhost` é necessário acessar pela porta 8082, como especificado no ``application.properties`` e passar suas credenciais de acesso.
+
+**Obs 2:** A página de login é acessada automaticamente ao informar o link no navegador, pois a mesma está configurada com `index.html`.
 
 ---
+
+## Acesso / Usuários
+
+Foram definidos dois usuários, assim que a aplicação inicia:
+- **ADMIN:** tem permissão pra fazer o CRUD completo e acessar todas as telas do sistema.
+- **USER:** tem permissão para acessar todas as telas e criar as entidades (GET e POST). 
+
+Para acessar as telas, basta logar com um desses usuários:
+| Email               | Senha     | Role (permissão)  |
+| ------------------- | --------- | ----------------- |
+| admin@mercado.com   | 123456    | ADMIN             |
+| user@mercado.com    | 123456    | USER              |
+
+**Obs:** todos os usuários criados a partir da tela de `Cadastro` recebem automaticamente a Role `USER`.
+
+![](imagem_git/login.png)
+
+Para acessar via Postman, coloque o Email e Senha na sessão de Basic Auth antes de cada requisição:
+
+![](imagem_git/loginPostman.png)
+
+**Obs:** todos os endpoints são acessados via **`localhost:8082`**
+
+---
+
+## Páginas HTML
+
+#### Login e Cadastro:
+![](imagem_git/login.png)
+![](imagem_git/cadastro.png)
+
+#### Fomulário de cadastro e Listagem
+![](imagem_git/formulario.png)
+![](imagem_git/listagem.png)
+
+#### Acesso negado (somente para roles do tipo USER):
+![](imagem_git/403.png)
+
+---
+
+
 
 ## Endpoints
 
@@ -92,33 +137,27 @@ Estes controllers retornam páginas HTML, não JSON. E somente os GETs podem ser
 
 #### 👥 Clientes (`/web/clientes`)
 
-| Método | URI                        | Descrição                                     | View retornada              |
-|--------|----------------------------|-----------------------------------------------|-----------------------------|
-| GET    | `/web/clientes/listar`     | Lista todos os clientes                       | `cliente/cliente-listar`    |
-| GET    | `/web/clientes/formulario` | Exibe o formulário de cadastro/edição         | `cliente/cliente-form`      |
-| GET    | `/web/clientes/editar/{id}`| Exibe o formulário preenchido para edição     | `cliente/cliente-form`      |
-| POST   | `/web/clientes/salvar`     | Salva cliente (novo ou edição) e redireciona  | Redirect → `/listar`        |
-| GET    | `/web/clientes/excluir/{id}`| Exclui cliente e redireciona para listagem   | Redirect → `/listar`        |
+| Método | URI                        | Descrição                                     |
+|--------|----------------------------|-----------------------------------------------|
+| GET    | `/web/clientes/listar`     | Lista todos os clientes                       |
+| GET    | `/web/clientes/formulario` | Exibe o formulário de cadastro/edição         |
+
 
 #### 📦 Produtos (`/web/produtos`)
 
-| Método | URI                         | Descrição                                      | View retornada              |
-|--------|-----------------------------|------------------------------------------------|-----------------------------|
-| GET    | `/web/produtos/listar`      | Lista todos os produtos                        | `produto/produto-listar`    |
-| GET    | `/web/produtos/formulario`  | Exibe o formulário de cadastro/edição          | `produto/produto-form`      |
-| GET    | `/web/produtos/editar/{id}` | Exibe o formulário preenchido para edição      | `produto/produto-form`      |
-| POST   | `/web/produtos/salvar`      | Salva produto (novo ou edição) e redireciona   | Redirect → `/listar`        |
-| GET    | `/web/produtos/excluir/{id}`| Exclui produto e redireciona para listagem     | Redirect → `/listar`        |
+| Método | URI                         | Descrição                                      |
+|--------|-----------------------------|------------------------------------------------|
+| GET    | `/web/produtos/listar`      | Lista todos os produtos                        |
+| GET    | `/web/produtos/formulario`  | Exibe o formulário de cadastro/edição          |
+
 
 #### 💰 Vendas (`/web/vendas`)
 
-| Método | URI                       | Descrição                                       | View retornada            |
-|--------|---------------------------|-------------------------------------------------|---------------------------|
-| GET    | `/web/vendas/listar`      | Lista todas as vendas                           | `venda/venda-listar`      |
-| GET    | `/web/vendas/formulario`  | Exibe o formulário de cadastro/edição           | `venda/venda-form`        |
-| GET    | `/web/vendas/editar/{id}` | Exibe o formulário preenchido para edição       | `venda/venda-form`        |
-| POST   | `/web/vendas/salvar`      | Salva venda (nova ou edição) e redireciona      | Redirect → `/listar`      |
-| GET    | `/web/vendas/excluir/{id}`| Exclui venda e redireciona para listagem        | Redirect → `/listar`      |
+| Método | URI                       | Descrição                                       |
+|--------|---------------------------|-------------------------------------------------|
+| GET    | `/web/vendas/listar`      | Lista todas as vendas                           |
+| GET    | `/web/vendas/formulario`  | Exibe o formulário de cadastro/edição           |
+
 
 
 ---
@@ -154,12 +193,6 @@ Estes controllers retornam páginas HTML, não JSON. E somente os GETs podem ser
     "desconto": 10.00
 }
 ````
-
----
-
-## Páginas HTML
-![Imagem do projeto](imagem_git/listagem.png)
-![Imagem do projeto](imagem_git/cadastro.png)
 
 ---
 
