@@ -40,7 +40,7 @@ public class SecurityConfig {
         	                auth.anyRequest().authenticated();
         					
         				})
-        		//.httpBasic(Customizer.withDefaults()) //login via Basic Auth
+        		.httpBasic(Customizer.withDefaults()) //login via Basic Auth
 
         		.formLogin(form -> form //login via formulario na web
         				.loginPage("/index") // pagina personalizada de login
