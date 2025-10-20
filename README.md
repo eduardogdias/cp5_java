@@ -77,15 +77,15 @@ Para acessar via Postman, coloque o Email e Senha na sessão de Basic Auth antes
 
 ## Páginas HTML
 
-#### Login e Cadastro:
+### Login e Cadastro:
 ![](imagem_git/login.png)
 ![](imagem_git/cadastro.png)
 
-#### Fomulário de cadastro e Listagem
+### Fomulário de cadastro e Listagem
 ![](imagem_git/formulario.png)
 ![](imagem_git/listagem.png)
 
-#### Acesso negado (somente para roles do tipo USER):
+### Acesso negado (somente para roles do tipo USER):
 ![](imagem_git/403.png)
 
 ---
